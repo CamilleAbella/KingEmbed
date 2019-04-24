@@ -1,0 +1,27 @@
+{
+  "name": "kingembed",
+  "version": "1.0.6",
+  "description": "An embed constructor by string for discord.js.",
+  "main": "KingEmbed.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "embed",
+    "richembed",
+    "discord.js",
+    "discord",
+    "easy",
+    "balisage",
+    "form",
+    "converter",
+    "embed",
+    "command"
+  ],
+  "author": "ghom",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^11.4.2"
+  },
+  "devDependencies": {}
+}
