@@ -50,9 +50,9 @@ c[**color**]c *set color*
 {time} *set timestamp*  
 b[**text**{**url**}]b *set footer*  
 a[**name**{**url**}]a *set author*  
-f[]f *add inline blank field*
-f[📌]f *add blank field*
-f[**name**{**value**}]f *add inline field*
+f[]f *add inline blank field*  
+f[📌]f *add blank field*  
+f[**name**{**value**}]f *add inline field*  
 f[📌**name**{**value**}]f *add field*  
 
 ### Content-Balises
