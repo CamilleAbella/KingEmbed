@@ -29,7 +29,7 @@ let KingEmbed = byEmbed(RichEmbed)
 ### Get help-menu of KingEmbed
 
 ```js
-let embed = await toEmbed("help")
+let HelpEmbed = await toEmbed("help")
 ```
 
 La methode `byEmbed(embed)` sert à convertir un RichEmbed en string au format KingEmbed. Pratique pour récupérer le code d'un embed déjà envoyé.
