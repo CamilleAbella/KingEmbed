@@ -1,6 +1,5 @@
 const Discord = require("discord.js");
 const data = require(__dirname+"/data.json");
-const request = require('request');
 const fs = require('fs');
 
 async function toEmbed(KingEmbed, message){
@@ -9,7 +8,7 @@ async function toEmbed(KingEmbed, message){
 		return help
 	}
 
-	let attachment;
+	/*let attachment;
 	let attachments = message.attachments.filter(a=>{return (
 		a.filename.endsWith(".jpg") ||
 		a.filename.endsWith(".jpeg") ||
@@ -18,9 +17,9 @@ async function toEmbed(KingEmbed, message){
 	)})
 	if(attachments.size>0){
 		let a = attachments.first()
-		await request(a.url).pipe(fs.createWriteStream(__dirname+"/temp/"+a.filename))
+		await request(a.url).pipe(fs.createWriteStream(__dirname+"/"+a.filename))
 		attachment = __dirname+"/"+a.filename
-	}
+	}*/
 
 	let content = KingEmbed.slice(0);
 	
@@ -108,7 +107,7 @@ async function toEmbed(KingEmbed, message){
 	};
 	if(thumb) embed.setThumbnail(thumb);
 	if(content) embed.setDescription(content);
-	if(attachment) embed.attachFile(attachment);
+	//if(attachment) embed.attachFile(attachment);
 	if(fields.length>25) fields=fields.slice(0,24);
 	fields.forEach(function(field){
 		if(!field.trim()) return embed.addBlankField(true);

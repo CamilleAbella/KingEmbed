@@ -1,6 +1,6 @@
 {
   "name": "kingembed",
-  "version": "1.0.8",
+  "version": "1.1.0",
   "description": "An embed constructor by string for discord.js.",
   "main": "KingEmbed.js",
   "scripts": {
@@ -21,8 +21,15 @@
   "author": "ghom",
   "license": "ISC",
   "dependencies": {
-    "discord.js": "^11.4.2",
-    "request": "^2.88.0"
+    "discord.js": "^11.4.2"
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CamilleAbella/KingEmbed.git"
+  },
+  "bugs": {
+    "url": "https://github.com/CamilleAbella/KingEmbed/issues"
+  },
+  "homepage": "https://github.com/CamilleAbella/KingEmbed#readme"
 }
