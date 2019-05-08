@@ -1,6 +1,6 @@
 {
   "name": "kingembed",
-  "version": "1.0.6",
+  "version": "1.0.8",
   "description": "An embed constructor by string for discord.js.",
   "main": "KingEmbed.js",
   "scripts": {
@@ -21,7 +21,8 @@
   "author": "ghom",
   "license": "ISC",
   "dependencies": {
-    "discord.js": "^11.4.2"
+    "discord.js": "^11.4.2",
+    "request": "^2.88.0"
   },
   "devDependencies": {}
 }
