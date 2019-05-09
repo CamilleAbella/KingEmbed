@@ -1,6 +1,6 @@
 {
   "name": "kingembed",
-  "version": "1.1.0",
+  "version": "1.1.4",
   "description": "An embed constructor by string for discord.js.",
   "main": "KingEmbed.js",
   "scripts": {

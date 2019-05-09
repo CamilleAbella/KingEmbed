@@ -1,27 +1,19 @@
 const Discord = require("discord.js");
 const data = require(__dirname+"/data.json");
 const fs = require('fs');
+var attachments = fs.readdirSync(__dirname+"/attachments/")
+attachments = attachments.map(function(name){
+	return new Discord.Attachment(__dirname+"/attachments/"+name, name);
+})
 
-async function toEmbed(KingEmbed, message){
+function toEmbed(KingEmbed, message){
 
 	if(KingEmbed === "help"){
 		return help
 	}
 
-	/*let attachment;
-	let attachments = message.attachments.filter(a=>{return (
-		a.filename.endsWith(".jpg") ||
-		a.filename.endsWith(".jpeg") ||
-		a.filename.endsWith(".png") ||
-		a.filename.endsWith(".gif")
-	)})
-	if(attachments.size>0){
-		let a = attachments.first()
-		await request(a.url).pipe(fs.createWriteStream(__dirname+"/"+a.filename))
-		attachment = __dirname+"/"+a.filename
-	}*/
-
 	let content = KingEmbed.slice(0);
+	const embed = new Discord.RichEmbed()
 	
 	let condition = (txt,t1,t2) => txt.includes(t1)&&txt.includes(t2)&&txt.indexOf(t1)<txt.indexOf(t2);
 	let rogner = (txt,t1,t2) => txt.slice(txt.indexOf(t1)+t1.length,txt.indexOf(t2));
@@ -49,6 +41,18 @@ async function toEmbed(KingEmbed, message){
 		}
 		return [txt]	
 	};
+	let toAttachment = (txt) => {
+		let attachment = attachments.find(att=>att.name.split(".")[0]==txt)
+    	if(attachment){
+    		try{
+	    		embed.attachFile(attachment)
+	    		return `attachment://${attachment.name}`
+	    	}catch(err){
+	    		return undefined
+	    	}
+    	}
+    	return txt
+	}
 
 	let date = new Date()
 	for(hex in data.colors){
@@ -83,16 +87,24 @@ async function toEmbed(KingEmbed, message){
 	let author = replaceOne('a[',']a')
 	let color = replaceOne('c[',']c')
 	let fields = replaceAll('f[',']f')
-	let embed = new Discord.RichEmbed()
 	if(content.includes("{time}")) {
     	content = content.replace("{time}","")
     	embed.setTimestamp()
     }
 	content = content.trim()
 	if(title) embed.setTitle(title);
-    if(author) embed.setAuthor(args(author)[0],args(author)[1]);
-	if(footer) embed.setFooter(args(footer)[0],args(footer)[1]);
-	if(image) embed.setImage(image);
+    if(author){
+    	let a = args(author)
+		a[1] = toAttachment(a[1])
+    	embed.setAuthor(a[0],a[1]);
+    }
+	if(footer){
+    	let a = args(footer)
+    	a[1] = toAttachment(a[1])
+    	embed.setAuthor(a[0],a[1]);
+    }
+	if(image) embed.setImage(toAttachment(image));
+	if(thumb) embed.setThumbnail(toAttachment(thumb));
 	if(color){
 		for(hex in data.colors){
 			let newRegex = data.colors[hex].replace(/({|})/g,"")
@@ -105,9 +117,7 @@ async function toEmbed(KingEmbed, message){
 			embed.setColor(Number(color)||"DEFAULT")
 		}
 	};
-	if(thumb) embed.setThumbnail(thumb);
 	if(content) embed.setDescription(content);
-	//if(attachment) embed.attachFile(attachment);
 	if(fields.length>25) fields=fields.slice(0,24);
 	fields.forEach(function(field){
 		if(!field.trim()) return embed.addBlankField(true);
@@ -168,19 +178,21 @@ module.exports = {
 let help = new Discord.RichEmbed()
 	.setAuthor("KingEmbed Help","https://jeu.video/wp-content/uploads/2018/03/discord-icon-7.png")
 	.setDescription("KingEmbed vous sert à créer entièrement un RichEmbed de façon textuelle. Pour cela il vous suffit de connaitre les balises spécifiques. En voici une liste.")
-	.addField("LES BALISES",`
+	.addField("Légende / Introduction",`
 Les balises servent à compléter l'embed.
 Les x[**arg**]x reçoivent un argument textuel.
 Les {key} doivent être écrits comme tels.
-Les x[**arg**{**arg**}]x reçoivent un argument **plus** un argument falcutatif.`,false)
+Les x[**arg**{**arg**}]x reçoivent un argument **plus** un argument falcutatif.
+Vous ne pouvez utiliser qu'une unique image intégrée par embed.
+Vous pouvez entrer un nom de couleur directement dans le *set color*`,false)
 	.addField("Rich-Balises",`
 t[**title**]t *set title*
-i[**url**]i *set image*
-l[**url**]l *set thumbnail*
+i[**url|name**]i *set image*
+l[**url|name**]l *set thumbnail*
 c[**color**]c *set color*
 {time} *set timestamp*
-b[**text**{**url**}]b *set footer*
-a[**name**{**url**}]a *set author*
+b[**text**{**url|name**}]b *set footer*
+a[**name**{**url|name**}]a *set author*
 f[]f *add inline blank field*
 f[📌]f *add blank field*
 f[**name**{**value**}]f *add inline field*
@@ -197,3 +209,12 @@ u[**emojiName**]u *emoji url*
 {hour} *HH:MM*
 {date} *DD-MM-YYYY*
 {**colorName**} *hex color*`,true)
+	.addField("Colors list",
+		Object.entries(data.colors).map(entry=>{
+			return `**${entry[0]}** ${entry[1]
+				.replace(/(\(|{|}|\))/g,"")
+				.split("|")
+				.join(",")}`
+		}).join("\n")
+	,true)
+	.addField("Images list",attachments.map(att=>`**${att.name}** Use with \`${att.name.split(".")[0]}\``),true)

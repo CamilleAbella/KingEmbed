@@ -8,6 +8,8 @@ Pour utiliser cette fonction, vous devez importer la fonction avec un require. c
 
 ## Use KingEmbed
 
+Pour en savoir plus, regardez le help-menu du KingEmbed car celui-ci est toujours plus récent que le readme. Il liste également les couleurs et les images disponibles.
+
 ### Require KingEmbed
 
 ```js
@@ -22,6 +24,8 @@ let RichEmbed = toEmbed(KingEmbed,discordMessage)
 
 ### Convert embed (RichEmbed) to string (KingEmbed)
 
+La methode `byEmbed(embed)` sert à convertir un RichEmbed en string au format KingEmbed. Pratique pour récupérer le code d'un embed déjà envoyé.
+
 ```js
 let KingEmbed = byEmbed(RichEmbed)
 ```
@@ -31,8 +35,6 @@ let KingEmbed = byEmbed(RichEmbed)
 ```js
 let HelpEmbed = toEmbed("help")
 ```
-
-La methode `byEmbed(embed)` sert à convertir un RichEmbed en string au format KingEmbed. Pratique pour récupérer le code d'un embed déjà envoyé.
 
 ## Créez un embed a partir de balises
 

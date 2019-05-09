@@ -12,6 +12,9 @@
 		"#ffffff" : "({white}|{blanc})",
 		"#000000" : "({black}|{noir})",
 		"#669999" : "({blue grey}|{bleu gris})",
-		"#737373" : "({grey}|{gris})"
+		"#737373" : "({grey}|{gris})",
+		"#36393E" : "({discord}|{background}|{fond}|{discord1}|{chat})",
+		"#2F3136" : "({front}|{gui}|{discord2}|{members})",
+		"#FFC300" : "({js}|{javascript})"
 	}
 }
